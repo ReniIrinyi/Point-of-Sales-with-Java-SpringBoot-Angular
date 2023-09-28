@@ -1,0 +1,19 @@
+version: '3'
+services:
+  pos-db:
+    container_name: pos-db
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin"
+    ports:
+      - "3306:3306"
+
+
+  pos-admin:
+    container_name: pos-admin
+    image: adminer
+    ports:
+      - "8081:8080"
