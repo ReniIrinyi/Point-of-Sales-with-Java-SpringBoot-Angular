@@ -1,6 +1,17 @@
 package com.pos.api.model;
 
-public class Payment {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity
+@Data
+public class Payment extends BaseModel {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
         private double subTotal;
         private double vat;
         private double discount;
@@ -13,36 +24,9 @@ public class Payment {
             this.payable = payable;
         }
 
-        public double getSubTotal() {
-            return subTotal;
-        }
-
-        public void setSubTotal(double subTotal) {
-            this.subTotal = subTotal;
-        }
-
-        public double getVat() {
-            return vat;
-        }
-
-        public void setVat(double vat) {
-            this.vat = vat;
-        }
-
-        public double getDiscount() {
-            return discount;
-        }
-
-        public void setDiscount(double discount) {
-            this.discount = discount;
-        }
-
-        public double getPayable() {
-            return payable;
-        }
-
-        public void setPayable(double payable) {
-            this.payable = payable;
-        }
-
+    @Override
+    public Long getId() {
+        return null;
     }
+
+}

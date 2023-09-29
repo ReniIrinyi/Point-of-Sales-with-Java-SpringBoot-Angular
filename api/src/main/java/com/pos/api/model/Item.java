@@ -1,11 +1,25 @@
 package com.pos.api.model;
 
-public class Item {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity
+@Data
+public class Item extends BaseModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String itemName;
     private double unitPrice;
     private double quantity;
     private double total;
-
+    @Override
+    public Long getId() {
+        return this.id;
+    }
     public Item() {
     }
 
@@ -13,38 +27,6 @@ public class Item {
         this.itemName = itemName;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
-        this.total = total;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
         this.total = total;
     }
 

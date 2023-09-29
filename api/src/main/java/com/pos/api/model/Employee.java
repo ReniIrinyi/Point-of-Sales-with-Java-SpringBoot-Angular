@@ -1,123 +1,68 @@
 package com.pos.api.model;
 
+import com.pos.api.model.enums.Role;
 import jakarta.persistence.*;
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.NonNull;
 
-public class Employee {
+import java.util.Objects;
+
+@Entity
+@EntityListeners({AuditingEntityListener.class})
+@Data
+public class Employee extends BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    private  Long id;
+    @NonNull
+    private Role role;
+    @NonNull
     private String firstName;
-
+    @NonNull
     private String lastName;
-
+    @NonNull
     private String userName;
-
-    private String password;
+    @NonNull
+    private  String email;
+    @NonNull
+    private  String password;
 
     private String phone;
 
     private String address;
-    @Column( insertable = false)
-    private String type;
 
     public Employee(){
-
     }
 
-    public Employee(String firstName, String lastName, String userName, String password, String phone, String address) {
+    public Employee( @NonNull Role role, @NonNull String firstName, @NonNull String lastName, @NonNull String userName, @NonNull String email, @NonNull String password, String phone, String address) {
+        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
+        this.email = email;
         this.password = password;
         this.phone = phone;
         this.address = address;
     }
 
-    public Employee(long id, String firstName, String lastName,
-                    String userName, String password, String phone, String address) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+     else if (o != null && this.getClass() == o.getClass()) {
+        Employee employee = (Employee) o;
+        return this.id.equals(employee.id) && this.email.equals(employee.email) && this.password.equals(employee.password);
+    }else {
+     return false;
+     }
     }
 
-    public Employee(long id, String firstName, String lastName,
-                    String userName, String password, String phone, String address, String type) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.type = type;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password);
     }
-
-    public long getId() {
+    @Override
+    public Long getId() {
         return id;
     }
-
-    public void setId(long id) {
-        this.id = id;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-}

@@ -1,15 +1,16 @@
 package com.pos.api.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+
 @Entity
-public class Product {
+@Data
+public class Product extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private long id;
+    private Long id;
 
     private String productName;
 
@@ -20,14 +21,17 @@ public class Product {
     private String description;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "categoryId")
     private Category category;
 
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "supplierId")
     private Supplier supplier;
 
     public Product() {
+    }
+
+    @Override
+    public Long getId(){
+    return this.id;
     }
 
     public Product(long id, String productName, double price,
@@ -48,34 +52,6 @@ public class Product {
         this.quantity = quantity;
         this.description = description;
         this.category = category;
-        this.supplier = supplier;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
 
